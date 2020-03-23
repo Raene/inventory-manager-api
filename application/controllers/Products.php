@@ -66,6 +66,7 @@ class Products extends CI_Controller {
 
 			
 			$resp = $this->product->create($data);
+	
 			return response($resp["status"], $resp["message"]);
 		} 
 		catch (\Throwable $th) 

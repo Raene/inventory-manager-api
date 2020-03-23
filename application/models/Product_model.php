@@ -35,7 +35,7 @@ class Product_model extends CI_model{
 
     public function create($data)
     {   
-        $query = $this->db->insert('products', $data);
+        $query = $this->db->insert('product', $data);
 
         if(!$query){
             $error = $this->db->error();
@@ -43,7 +43,7 @@ class Product_model extends CI_model{
             $errorStatus = 400;
             throw new Exception($errorMessage, $errorStatus);
         }
-
+        
         return array("status"=> 201, "message"=> "Product added to Inventory");
     }
 
