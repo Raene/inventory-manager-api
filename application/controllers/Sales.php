@@ -17,9 +17,9 @@ class Sales extends CI_Controller
 
 			return response($resp["status"], $resp["payload"]);
 		}
-        catch (\Throwable $th) 
-		{
-			return response($th->getCode(),$th->getMessage());
+        catch (Exception $e) 
+		{ 
+			return response($e->getCode(),$e->getMessage());
 		}
     }
     
@@ -31,9 +31,9 @@ class Sales extends CI_Controller
 
 			return response($resp["status"], $resp["payload"]);
 		}
-		catch (\Throwable $th) 
-		{
-			return response($th->getCode(),$th->getMessage());
+        catch (Exception $e) 
+		{ 
+			return response($e->getCode(),$e->getMessage());
 		}
     }
 
@@ -45,9 +45,40 @@ class Sales extends CI_Controller
 
 			return response($resp["status"], $resp["payload"]);
 		}
-        catch (\Throwable $th) 
+        catch (Exception $e) 
+		{ 
+			return response($e->getCode(),$e->getMessage());
+		}
+    }
+
+    public function get_sales_month(){
+        try 
 		{
-			return response($th->getCode(),$th->getMessage());
+            $resp["payload"] = $this->sales->get_sales_by_month();
+            $resp["status"]  = 200;
+			return response($resp["status"], $resp["payload"]);
+		}
+        catch (Exception $e) 
+		{ 
+			return response($e->getCode(),$e->getMessage());
+		}
+    }
+
+    public function get_sum(){
+        try 
+		{
+            $monthly_sum = $this->sales->monthly_sum()["SUM(quantity * prod_price)"];
+            $daily_sum   = $this->sales->daily_sum()["SUM(quantity * prod_price)"];
+            $weekly_sum  = $this->sales->weekly_sum()["SUM(quantity * prod_price)"];
+
+            $resp["payload"] = ["monthly sum"=>$monthly_sum, "daily_sum"=> $daily_sum, "weekly_sum"=>$weekly_sum];
+
+            $resp["status"]  = 200;
+			return response($resp["status"], $resp["payload"]);
+		}
+        catch (Exception $e) 
+		{ 
+			return response($e->getCode(),$e->getMessage());
 		}
     }
 }
