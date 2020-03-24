@@ -15,7 +15,9 @@ class Product_model extends CI_model{
 
             if(!$query){
                 $error = $this->db->error();
-                throw new Exception('model_product->get_all: '.$error['code'] .' '.$error['message']);
+                $errorMessage = $error['message'];
+                $errorStatus = 500;
+                throw new Exception($errorMessage, $errorStatus);
             }
 
         return $query->result_array();
@@ -27,7 +29,9 @@ class Product_model extends CI_model{
 
             if(!$query){
                 $error = $this->db->error();
-                throw new Exception('model_product->get_all: '.$error['code'] .' '.$error['message']);
+                $errorMessage = $error['message'];
+                $errorStatus = 500;
+                throw new Exception($errorMessage, $errorStatus);
             }
             
         return $query->row_array();
@@ -44,7 +48,7 @@ class Product_model extends CI_model{
             throw new Exception($errorMessage, $errorStatus);
         }
         
-        return array("status"=> 201, "message"=> "Product added to Inventory");
+        return "Product added to Inventory";
     }
 
     public function delete($id){
@@ -63,7 +67,7 @@ class Product_model extends CI_model{
             $errorStatus = 400;
             throw new Exception($errorMessage, $errorStatus);
         }
-        return array("status"=> 201, "message"=> "Product updated Successfully");
+        return "Product updated Successfully";
     }
 
     public function product_exists($name){
