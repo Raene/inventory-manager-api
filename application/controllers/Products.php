@@ -17,13 +17,14 @@ class Products extends CI_Controller {
 	{
 		try 
 		{
-			$resp = $this->product->get_all();
+            $resp["payload"] = $this->sales->get_all();
+            $resp["status"]  = 200;
 
-			return response(200, $resp);
+			return response($resp["status"], $resp["payload"]);
 		}
-		catch (EXCEPTION $e)
-		{
-			return response(500,$e->getMessage());
+        catch (Exception $e) 
+		{ 
+			return response($e->getCode(),$e->getMessage());
 		}
 	}
 
@@ -31,18 +32,20 @@ class Products extends CI_Controller {
 	{
 		try 
 		{
-			$resp = $this->product->get_by_id($id);
+			$resp["payload"] = $this->product->get_by_id($id);
+			$resp["status"]  = 200;
 
-				if($resp === null){
-					$resp = "No record exists matching specified parameters";
-			   		return response(500, $resp);
+				if($resp["payload"] === null){
+					$resp["payload"] = "No record exists matching specified parameters";
+					$resp["status"]  = 200;
+			   		return response($resp["status"], $resp["payload"]);
 				}
 
-			return response(200, $resp);
+			return response($resp["status"], $resp["payload"]);
 		} 
 		catch (EXCEPTION $e)
 		{
-			return response(500,$e->getMessage());
+			return response($e->getCode(),$e->getMessage());
 		}
 	}
 
@@ -68,13 +71,14 @@ class Products extends CI_Controller {
 			}
 
 			
-			$resp = $this->product->create($data);
+			$resp["payload"] = $this->product->create($data);
+			$resp["status"]  = 200;
 	
-			return response($resp["status"], $resp["message"]);
+			return response($resp["status"], $resp["payload"]);
 		} 
-		catch (\Throwable $th) 
-		{
-			return response($th->getCode(),$th->getMessage());
+        catch (Exception $e) 
+		{ 
+			return response($e->getCode(),$e->getMessage());
 		}
 	}
 
@@ -97,13 +101,14 @@ class Products extends CI_Controller {
 					throw new Exception($errorMessage, $errorStatus);
 			}
 
-			$resp = $this->product->update($data);
-			return response($resp["status"], $resp["message"]);
+			$resp["payload"] = $this->product->update($data);
+			$resp["status"]  = 200;
+			return response($resp["status"], $resp["payload"]);
 
 		} 
-		catch (\Throwable $th) 
-		{
-			return response($th->getCode(),$th->getMessage());
+        catch (Exception $e) 
+		{ 
+			return response($e->getCode(),$e->getMessage());
 		}
 	}
 
