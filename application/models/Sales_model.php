@@ -5,7 +5,7 @@ class Sales_model extends CI_model
     private $quantity;
     private $user_id;
     private $prod_name;
-    private $prod_price;
+    private $sales_price;
 
     public function __construct()
     {
@@ -77,7 +77,7 @@ class Sales_model extends CI_model
 
     public function monthly_sum()
     {
-        $sql = "SELECT SUM(quantity * prod_price) FROM sales WHERE MONTH(created_at) = MONTH(NOW())";
+        $sql = "SELECT SUM(sales_price) FROM sales WHERE MONTH(created_at) = MONTH(NOW())";
         $query = $this->db->query($sql);
 
             if(!$query)
@@ -93,7 +93,7 @@ class Sales_model extends CI_model
 
     public function daily_sum()
     {
-        $sql = "SELECT SUM(quantity * prod_price) FROM sales WHERE DAY(created_at) = DAY(NOW())";
+        $sql = "SELECT SUM(sales_price) FROM sales WHERE DAY(created_at) = DAY(NOW())";
         $query = $this->db->query($sql);
 
             if(!$query)
@@ -109,7 +109,7 @@ class Sales_model extends CI_model
 
     public function weekly_sum()
     {
-        $sql = "SELECT SUM(quantity * prod_price) FROM sales WHERE WEEK(created_at) = WEEK(NOW())";
+        $sql = "SELECT SUM(sales_price) FROM sales WHERE WEEK(created_at) = WEEK(NOW())";
         $query = $this->db->query($sql);
 
             if(!$query)
