@@ -67,9 +67,9 @@ class Sales extends CI_Controller
     public function get_sum(){
         try 
 		{
-            $monthly_sum = $this->sales->monthly_sum()["SUM(quantity * prod_price)"];
-            $daily_sum   = $this->sales->daily_sum()["SUM(quantity * prod_price)"];
-            $weekly_sum  = $this->sales->weekly_sum()["SUM(quantity * prod_price)"];
+            $monthly_sum = $this->sales->monthly_sum()["SUM(sales_price)"];
+            $daily_sum   = $this->sales->daily_sum()["SUM(sales_price)"];
+            $weekly_sum  = $this->sales->weekly_sum()["SUM(sales_price)"];
 
             $resp["payload"] = ["monthly sum"=>$monthly_sum, "daily_sum"=> $daily_sum, "weekly_sum"=>$weekly_sum];
 
