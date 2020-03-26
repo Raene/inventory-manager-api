@@ -104,6 +104,11 @@ class Expenses extends CI_Controller
 			return response($e->getCode(),$e->getMessage());
 		}
     }
+
+    public function delete($id){
+		$resp = $this->expense->delete($id);
+		return response($resp["status"], $resp["message"]); 
+	}
     
 	public function quantity_isNot_zero($quantity)
 	{
