@@ -63,6 +63,47 @@ class Expenses extends CI_Controller
 			return response($e->getCode(),$e->getMessage());
 		}
     }
+
+    public function get_expenses_today(){
+        try 
+		{
+            $resp["payload"] = $this->expense->get_expenses_by_day();
+            $resp["status"]  = 200;
+
+			return response($resp["status"], $resp["payload"]);
+		}
+        catch (Exception $e) 
+		{ 
+			return response($e->getCode(),$e->getMessage());
+		}
+    }
+
+    public function get_expenses_week(){
+        try 
+		{
+            $resp["payload"] = $this->expense->get_expenses_by_week();
+            $resp["status"]  = 200;
+
+			return response($resp["status"], $resp["payload"]);
+		}
+        catch (Exception $e) 
+		{ 
+			return response($e->getCode(),$e->getMessage());
+		}
+    }
+
+    public function get_expenses_month(){
+        try 
+		{
+            $resp["payload"] = $this->expense->get_expenses_by_month();
+            $resp["status"]  = 200;
+			return response($resp["status"], $resp["payload"]);
+		}
+        catch (Exception $e) 
+		{ 
+			return response($e->getCode(),$e->getMessage());
+		}
+    }
     
 	public function quantity_isNot_zero($quantity)
 	{
