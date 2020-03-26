@@ -79,13 +79,4 @@ class Product_model extends CI_model{
         }
         
     }
-
-    public function quantity_isNot_zero($quantity){
-        if ($quantity <= 0) {
-            return false;
-        } else {
-            return true;
-        }
-        
-    }
 }
