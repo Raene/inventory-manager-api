@@ -43,7 +43,7 @@ class Expenses extends CI_Controller
             $this->form_validation->set_data($out);
             $this->form_validation->set_rules('product_name', 'Product Name', 'required');
             $this->form_validation->set_rules('quantity', 'Quantity', 'required|callback_quantity_isNot_zero');
-            $this->form_validation->set_rules('product_price', 'Product Price', 'required');
+            $this->form_validation->set_rules('product_price', 'Product Price', 'required|callback_price_isNot_zero');
 
 			if ($this->form_validation->run() == FALSE)
 			{
@@ -68,7 +68,21 @@ class Expenses extends CI_Controller
 	{
 			$this->form_validation->set_message('quantity_isNot_zero', 'Product quantity can\'t be zero ');
 
-			if(!$this->product->quantity_isNot_zero($quantity))
+			if(!isNot_zero($quantity))
+			{
+				return false;
+			}else{
+
+				return true;
+			}
+
+	}
+
+	public function price_isNot_zero($price)
+	{
+			$this->form_validation->set_message('price_isNot_zero', 'Product must have a set price');
+
+			if(!isNot_zero($price))
 			{
 				return false;
 			}else{
