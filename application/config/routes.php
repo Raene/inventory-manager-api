@@ -57,6 +57,7 @@ $route['products']['GET']                  = 'products';
 $route['expenses/month']['GET']            = 'expenses/get_expenses_month';
 $route['expenses/today']['GET']            = 'expenses/get_expenses_today';
 $route['expenses/week']['GET']             = 'expenses/get_expenses_week';
+$route['expenses/(:any)']['DELETE']        = 'expenses/delete/$1';
 $route['expenses']['POST']                 = 'expenses/create';
 $route['expenses']['GET']                  = 'expenses';
 $route['sales/sum']['GET']                 = 'sales/get_sum';
