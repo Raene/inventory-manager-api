@@ -87,8 +87,17 @@ class Expense_model extends CI_model{
 
     public function delete($id)
     {
-        $query = $this->db->where('id', $id);
+        $this->db->where('id', $id);
         $query = $this->db->delete('expenses');
+            
+            if(!$query)
+            {
+                $error = $this->db->error();
+                $errorMessage = $error['message'];
+                $errorStatus = 500;
+                throw new Exception($errorMessage, $errorStatus);
+            }
+
         return array("status"=> 201, "message"=> "Expense Deleted from Inventory");
     }
 }
