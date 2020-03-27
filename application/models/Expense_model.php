@@ -26,7 +26,7 @@ class Expense_model extends CI_model{
     public function create($data)
     {
         $query = $this->db->insert_batch('expenses', $data);
-        //return $data;
+        
         if(!$query){
             $error = $this->db->error();
             $errorMessage = $error['message'];
