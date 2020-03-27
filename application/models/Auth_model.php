@@ -1,5 +1,5 @@
 <?php
-    class Admin_model extends CI_Model{
+    class Auth_model extends CI_Model{
         private $name;
         private $email;
         private $password;
@@ -8,9 +8,9 @@
             $this->load->database();
         }
 
-        public function create($data,$enc_password)
+        public function create($tablename,$data)
         {
-            $query = $this->db->insert('admins', $data);
+            $query = $this->db->insert($tablename, $data);
 
             if(!$query){
                 $error = $this->db->error();
@@ -18,25 +18,25 @@
                 $errorStatus = 400;
                 throw new Exception($errorMessage, $errorStatus);
             }
-            return "Admin Created";
+            return "User Created";
         }
 
-        public function login($password,$email)
+        public function login($tablename,$password,$email)
         {
-            $admin = fetch_by_email('admins',$email);
-            if($admin == FALSE){
+            $result = fetch_by_email($tablename,$email);
+            if($result == FALSE){
                 $errorMessage = 'User Not Found';
                 $errorStatus  = 400;
                 throw new Exception($errorMessage, $errorStatus);
             }
 
-             if(!password_verify($password, $admin["password"]))
+             if(!password_verify($password, $result["password"]))
              {
                  $errorMessage = 'Invalid Password';
                  $errorStatus = 400;
                  throw new Exception($errorMessage, $errorStatus);
              }
 
-             return array('id'=>$admin["id"], 'name'=>$admin['name'], 'email'=>$admin['email'], 'role'=>'admin');
+             return array('id'=>$result["id"], 'name'=>$result['name'], 'email'=>$result['email']);
         }
     }
