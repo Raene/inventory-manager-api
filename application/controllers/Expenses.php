@@ -54,7 +54,7 @@ class Expenses extends CI_Controller
 
 			
 			$resp["payload"] = $this->expense->create($data);
-			$resp["status"]  = 200;
+			$resp["status"]  = 201;
 	
 			return response($resp["status"], $resp["payload"]);
 		} 
