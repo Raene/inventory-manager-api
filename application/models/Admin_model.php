@@ -18,7 +18,25 @@
                 $errorStatus = 400;
                 throw new Exception($errorMessage, $errorStatus);
             }
-            $id = $this->db->insert_id();
-            return array('id'=>$id, 'name'=>$data['name'], 'role'=>'admin');
+            return "Admin Created";
+        }
+
+        public function login($password,$email)
+        {
+            $admin = fetch_by_email('admins',$email);
+            if($admin == FALSE){
+                $errorMessage = 'User Not Found';
+                $errorStatus  = 400;
+                throw new Exception($errorMessage, $errorStatus);
+            }
+
+             if(!password_verify($password, $admin["password"]))
+             {
+                 $errorMessage = 'Invalid Password';
+                 $errorStatus = 400;
+                 throw new Exception($errorMessage, $errorStatus);
+             }
+
+             return array('id'=>$admin["id"], 'name'=>$admin['name'], 'email'=>$admin['email'], 'role'=>'admin');
         }
     }
