@@ -103,7 +103,7 @@ $autoload['helper'] = array('url','my_response_helper','my_header_setup', 'my_ut
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array('form_validation');
+$autoload['config'] = array('form_validation','env_vars.php');
 
 /*
 | -------------------------------------------------------------------
@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('product_model' => 'product', 'sales_model' => 'sales', 'expense_model'=> 'expense');
+$autoload['model'] = array('product_model' => 'product', 'sales_model' => 'sales', 'expense_model'=> 'expense', 'admin_model'=>'admin');
