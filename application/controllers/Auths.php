@@ -152,11 +152,19 @@ use \Firebase\JWT\JWT;
         public function email_exists($email){
             $this->form_validation->set_message('email_exists', 'That email is taken. Choose another');
 
-            if (email_exists('admins',$email)) {
+            $email_exists;
+
+            if($this->router->method == "user_register")
+            {
+                $email_exists = email_exists('user',$email);
+            } else if($this->router->method == "admin_register"){
+                $email_exists = email_exists('admins',$email);
+            }
+
+            if ($email_exists) {
                 return true;
             } else {
                 return false;
-            }
-            
+            }            
         }
     }
