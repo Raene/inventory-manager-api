@@ -37,6 +37,13 @@
            return $query->row_array();
        }
 
+       public function create($data)
+       {
+            $query = $this->db->insert("user",$data);
+            db_error_response($query);
+            return "User Created";
+       }
+
        public function delete($id)
        {
         $query = $this->db->where('id', $id);
