@@ -37,3 +37,14 @@ function fetch_by_email($tablename,$email)
             return false;
         }
     }
+
+function db_error_response($query)
+{
+    $ci = & get_instance();
+    if(!$query){
+        $error = $ci->db->error();
+        $errorMessage = $error['message'];
+        $errorStatus = 400;
+        throw new Exception($errorMessage, $errorStatus);
+    }
+}
