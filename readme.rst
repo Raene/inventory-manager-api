@@ -1,70 +1,56 @@
 ###################
-What is CodeIgniter
+Backend Api for Inventory manager
 ###################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
-
 *******************
-Release Information
+Requirements
 *******************
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+Php, Mysql and Apache server are needed to run this api.
 
 **************************
-Changelog and New Features
+Creating a User
 **************************
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+This backend api uses one endpoint for both  user and admin login.
+By default any user registering on the Inventory manager is an Admin of his/her/non-binary/trans inventory.
+Admins can create users(to help manage their inventory with limited access).
 
-*******************
-Server Requirements
-*******************
+When registering an admin-user the expected payload is 
+{
+    user: {
+        name,
+        email,
+        password
+    }    
+}
+All users are on the user table, admin users are identified by the value "admin" under the role column. 
 
-PHP version 5.6 or newer is recommended.
+**************************
+Available Routes Include
+**************************
 
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+['localhost/inventory-manager-api/user/(:any)']['GET']               
+['localhost/inventory-manager-api/user']['GET']                      
+['localhost/inventory-manager-api/auth/login']['POST']               
+['localhost/inventory-manager-api/auth/register']['POST']            
+['localhost/inventory-manager-api/products/(:any)']['GET']           
+['localhost/inventory-manager-api/products/(:any)']['DELETE']        
+['localhost/inventory-manager-api/products']['PUT']                  
+['localhost/inventory-manager-api/products']['POST']                 
+['localhost/inventory-manager-api/products']['GET']                  
+['localhost/inventory-manager-api/expenses/month']['GET']            
+['localhost/inventory-manager-api/expenses/today']['GET']            
+['localhost/inventory-manager-api/expenses/week']['GET']             
+['localhost/inventory-manager-api/expenses/(:any)']['DELETE']        
+['localhost/inventory-manager-api/expenses']['POST']                 
+['localhost/inventory-manager-api/expenses']['GET']                  
+['localhost/inventory-manager-api/sales/sum']['GET']                 
+['localhost/inventory-manager-api/sales/sum']['GET']                 
+['localhost/inventory-manager-api/sales/today']['GET']               
+['localhost/inventory-manager-api/sales/week']['GET']                
+['localhost/inventory-manager-api/sales/month']['GET']               
+['localhost/inventory-manager-api/sales/month']['GET']               
+['localhost/inventory-manager-api/sales']['GET']                     
 
-************
-Installation
-************
 
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
-
-*******
-License
-*******
-
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
-
-*********
-Resources
-*********
-
--  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community Slack Channel <https://codeigniterchat.slack.com>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
-
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
