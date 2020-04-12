@@ -3,7 +3,6 @@
         private $name;
         private $email;
         private $password;
-        private $isadmin;
 
         public function __construct(){
             $this->load->database();
