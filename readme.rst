@@ -29,7 +29,7 @@ All users are on the user table, admin users are identified by the value "admin"
 **************************
 Available Routes Include
 **************************
-
+['localhost/inventory-manager-api/user']['POST']   
 ['localhost/inventory-manager-api/user/(:any)']['GET']               
 ['localhost/inventory-manager-api/user']['GET']                      
 ['localhost/inventory-manager-api/auth/login']['POST']               
