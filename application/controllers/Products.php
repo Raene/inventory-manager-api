@@ -3,13 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Products extends CI_Controller {
 
+	private $key;
+	public $creds;
+	public $authHeader;
+
 	public function __construct()
 	{
-		parent::__construct();
     		// header('Access-Control-Allow-Origin: *');
 			// header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-			
+			parent::__construct();
 			headersUp();
+			$this->load->library('myauthorization');
+			$this->authHeader = $_SERVER['HTTP_AUTHORIZATION'];
+			$this->key   =  $this->config->item('jwt-key');   
     		
 	}
 	
@@ -17,6 +23,9 @@ class Products extends CI_Controller {
 	{
 		try 
 		{
+			
+			$this->creds = $this->myauthorization->isLoggedIn($this->authHeader, $this->key);
+				
             $resp["payload"] = $this->sales->get_all();
             $resp["status"]  = 200;
 
@@ -32,6 +41,8 @@ class Products extends CI_Controller {
 	{
 		try 
 		{
+			$this->creds = $this->myauthorization->isLoggedIn($this->authHeader, $this->key);
+
 			$resp["payload"] = $this->product->get_by_id($id);
 			$resp["status"]  = 200;
 
@@ -53,6 +64,8 @@ class Products extends CI_Controller {
 	{
 		try 
 		{
+			$this->creds = $this->myauthorization->isLoggedIn($this->authHeader, $this->key);
+
 			$data = $this->input->raw_input_stream;
 			$data = utf8_encode($data);
 			$data = json_decode($data, true);
@@ -70,7 +83,8 @@ class Products extends CI_Controller {
 						throw new Exception($errorMessage, $errorStatus);
 			}
 
-			
+			$data['user_id'] = $this->creds['id'];
+			$data['admin_id'] = $this->creds['admin_id'];
 			$resp["payload"] = $this->product->create($data);
 			$resp["status"]  = 200;
 	
@@ -86,6 +100,8 @@ class Products extends CI_Controller {
 	{
 		try 
 		{
+			$this->creds = $this->myauthorization->isLoggedIn($this->authHeader, $this->key);
+
 			$data = $this->input->raw_input_stream;
 			$data = utf8_encode($data);
 			$data = json_decode($data, true);
@@ -135,7 +151,7 @@ class Products extends CI_Controller {
 	{
 			$this->form_validation->set_message('quantity_isNot_zero', 'Product quantity can\'t be zero ');
 
-			if(!$this->product->quantity_isNot_zero($quantity))
+			if(!isNot_zero($quantity))
 			{
 				return false;
 			}else{
