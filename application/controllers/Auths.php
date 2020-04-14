@@ -21,6 +21,12 @@ use \Firebase\JWT\JWT;
 			    $data = utf8_encode($data);
                 $data = json_decode($data, true);
             
+                if($data === null)
+                {
+                    $errorStatus = 400;
+                    throw new Exception('No data given', $errorStatus);
+                }
+
                 $this->form_validation->set_data($data);
                 $this->form_validation->set_rules('name', 'Name', 'required');
                 $this->form_validation->set_rules('email', 'Email', 'required|callback_email_exists');
@@ -68,7 +74,7 @@ use \Firebase\JWT\JWT;
                 $token = $this->auth->login($data);
                 $key   =  $this->config->item('jwt-key');
                 
-                $jwt = JWT::encode($token, $key);
+                $jwt = JWT::encode($token, $this->key);
 
                 $resp["payload"] = $jwt;
                 $resp["status"]  = 200;
