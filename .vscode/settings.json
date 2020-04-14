@@ -1,0 +1,7 @@
+{
+    "files.watcherExclude": {
+        "**/system/**": true,
+        "**/user_guide/**": true,
+        "**cache/**": true
+    }
+}
