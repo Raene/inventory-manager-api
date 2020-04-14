@@ -22,10 +22,16 @@ class Users extends CI_Controller
 		try 
 		{
 			$this->creds = $this->myauthorization->isLoggedIn($this->authHeader, $this->key);
-            $resp["payload"] = $this->user->get_all();
+
+			if (!$this->myauthorization->isAdmin($this->creds['role'])) 
+			{
+				return response(401, "Only admins may fetch users");
+			}
+
+            $resp["payload"] = $this->user->get_all($this->creds['admin_id']);
             $resp["status"]  = 200;
 
-			return response($resp["status"], $this->creds);
+			return response($resp["status"], $resp["payload"]);
 		}
         catch (Exception $e) 
 		{ 
@@ -37,7 +43,14 @@ class Users extends CI_Controller
 	{
 		try 
 		{
-			$resp["payload"] = $this->user->get_by_id($id);
+			$this->creds = $this->myauthorization->isLoggedIn($this->authHeader, $this->key);
+				
+			if (!$this->myauthorization->isAdmin($this->creds['role'])) 
+			{
+				return response(401, "Only admins may create users");
+			}
+
+			$resp["payload"] = $this->user->get_by_id($id,$this->creds['admin_id']);
 			$resp["status"]  = 200;
 
 				if($resp["payload"] === null){
@@ -71,7 +84,8 @@ class Users extends CI_Controller
                 $data = json_decode($data, true);
             
                 $this->form_validation->set_data($data);
-                $this->form_validation->set_rules('name', 'Name', 'required');
+				$this->form_validation->set_rules('name', 'Name', 'required');
+				$this->form_validation->set_rules('admin_id', 'Admin_Id', 'required');
                 $this->form_validation->set_rules('email', 'Email', 'required|callback_email_exists');
                 $this->form_validation->set_rules('password', 'Password', 'required');
 
@@ -87,7 +101,7 @@ class Users extends CI_Controller
 				$resp["payload"] = $this->user->create($data);
 				$resp["status"]  = 200;
 	
-				return response($resp["status"], $this->creds);
+				return response($resp["status"], "User Created");
 			}
 			catch (Exception $e) 
 			{ 
