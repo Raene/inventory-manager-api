@@ -85,7 +85,6 @@ class Users extends CI_Controller
             
                 $this->form_validation->set_data($data);
 				$this->form_validation->set_rules('name', 'Name', 'required');
-				$this->form_validation->set_rules('admin_id', 'Admin_Id', 'required');
                 $this->form_validation->set_rules('email', 'Email', 'required|callback_email_exists');
                 $this->form_validation->set_rules('password', 'Password', 'required');
 
@@ -97,7 +96,8 @@ class Users extends CI_Controller
                 	}
 
                 $enc_password     = password_hash($data['password'], PASSWORD_BCRYPT);
-                $data["password"] = $enc_password;
+				$data["password"] = $enc_password;
+				$data['admin_id'] = $this->creds['admin_id'];
 				$resp["payload"] = $this->user->create($data);
 				$resp["status"]  = 200;
 	
