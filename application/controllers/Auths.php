@@ -71,12 +71,11 @@ use \Firebase\JWT\JWT;
                     throw new Exception($errorMessage, $errorStatus);
                 }
 
-                $token = $this->auth->login($data);
-                $key   =  $this->config->item('jwt-key');
+                $dBpayload = $this->auth->login($data);
                 
-                $jwt = JWT::encode($token, $this->key);
+                $token = JWT::encode($dBpayload, $this->key);
 
-                $resp["payload"] = $jwt;
+                $resp["payload"] = array('token'=> $token, "dBpayload"=>$dBpayload);
                 $resp["status"]  = 200;
 
                 return response($resp["status"], $resp["payload"]);    
