@@ -47,7 +47,7 @@ class Users extends CI_Controller
 				
 			if (!$this->myauthorization->isAdmin($this->creds['role'])) 
 			{
-				return response(401, "Only admins may create users");
+				return response(401, "Only admins may fetch users");
 			}
 
 			$resp["payload"] = $this->user->get_by_id($id,$this->creds['admin_id']);
