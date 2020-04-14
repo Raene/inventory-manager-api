@@ -13,6 +13,7 @@
                 $sql = "INSERT INTO `admins`() VALUES ()";
                 $query = $this->db->query($sql);
                 $data['admin_id'] = $this->db->insert_id();
+                $data['role'] = "admin";
                 $query = $this->db->insert('user',$data);
                 db_error_response($query);
                 return "Admin User Created";
@@ -37,6 +38,6 @@
                  throw new Exception($errorMessage, $errorStatus);
              }
 
-             return array('id'=>$result["id"], 'name'=>$result['name'], 'email'=>$result['email'], 'role'=>$result['role']);
+             return array('id'=>$result["id"], 'admin_id'=>$result["admin_id"] , 'name'=>$result['name'], 'email'=>$result['email'], 'role'=>$result['role']);
         }
     }
