@@ -9,9 +9,9 @@
             $this->load->database();
        }
 
-       public function get_all()
+       public function get_all($adminId)
        {
-           $query = $this->db->get('user');
+           $query = $this->db->get_where('user', array('admin_id' => $adminId));
    
                if(!$query){
                    $error = $this->db->error();
@@ -23,9 +23,9 @@
            return $query->result_array();
        }
 
-       public function get_by_id($id)
+       public function get_by_id($id,$adminId)
        {
-           $query = $this->db->get_where('user', array('id' => $id));
+           $query = $this->db->get_where('user', array('id' => $id, 'admin_id' => $adminId));
    
                if(!$query){
                    $error = $this->db->error();
@@ -44,9 +44,9 @@
             return "User Created";
        }
 
-       public function delete($id)
+       public function delete($id,$adminId)
        {
-        $query = $this->db->where('id', $id);
+        $query = $this->db->where(array('id' => $id, 'admin_id' => $adminId));
         $query = $this->db->delete('product');
         return array("status"=> 201, "message"=> "User account deleted");
       }
