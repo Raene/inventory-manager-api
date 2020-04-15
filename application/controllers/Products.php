@@ -102,6 +102,10 @@ class Products extends CI_Controller {
 		try 
 		{
 			$this->creds = $this->myauthorization->isLoggedIn($this->authHeader, $this->key);
+			if (!$this->myauthorization->isAdmin($this->creds['role'])) 
+			{
+				return response(401, "Only admins may edit products");
+			}
 
 			$data = $this->input->raw_input_stream;
 			$data = utf8_encode($data);
@@ -130,6 +134,12 @@ class Products extends CI_Controller {
 	}
 
 	public function delete($id){
+		$this->creds = $this->myauthorization->isLoggedIn($this->authHeader, $this->key);
+
+		if (!$this->myauthorization->isAdmin($this->creds['role'])) 
+		{
+			return response(401, "Only admins may delete products");
+		}
 		$resp = $this->product->delete($id);
 		return response($resp["status"], $resp["message"]); 
 	}
