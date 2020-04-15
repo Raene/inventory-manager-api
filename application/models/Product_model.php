@@ -9,9 +9,9 @@ class Product_model extends CI_model{
         $this->load->database();
     }
 
-    public function get_all()
+    public function get_all($adminId)
     {
-        $query = $this->db->get('product');
+        $query = $this->db->get_where('product', array('admin_id' => $adminId));
 
             if(!$query){
                 $error = $this->db->error();
