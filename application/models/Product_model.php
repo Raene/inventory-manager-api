@@ -23,9 +23,9 @@ class Product_model extends CI_model{
         return $query->result_array();
     }
 
-    public function get_by_id($id)
+    public function get_by_id($id, $user_id)
     {
-        $query = $this->db->get_where('product', array('id' => $id));
+        $query = $this->db->get_where('product', array('id' => $id, 'user_id'=> $user_id));
 
             if(!$query){
                 $error = $this->db->error();
