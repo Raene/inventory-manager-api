@@ -12,7 +12,7 @@ class Product_model extends CI_model{
     public function get_all($adminId)
     {
         $query = $this->db->get_where('product', array('admin_id' => $adminId));
-
+        
             if(!$query){
                 $error = $this->db->error();
                 $errorMessage = $error['message'];
