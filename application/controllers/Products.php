@@ -26,8 +26,8 @@ class Products extends CI_Controller {
 		{
 			
 			$this->creds = $this->myauthorization->isLoggedIn($this->authHeader, $this->key);
-				
-            $resp["payload"] = $this->sales->get_all($this->creds['admin_id']);
+		
+            $resp["payload"] = $this->product->get_all($this->creds['admin_id']);
             $resp["status"]  = 200;
 
 			return response($resp["status"], $resp["payload"]);
