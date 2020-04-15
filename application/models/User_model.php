@@ -11,6 +11,7 @@
 
        public function get_all($adminId)
        {
+           $this->db->select('id,admin_id,name, email, role,created_at');
            $query = $this->db->get_where('user', array('admin_id' => $adminId));
    
                if(!$query){
@@ -25,6 +26,7 @@
 
        public function get_by_id($id,$adminId)
        {
+           $this->db->select('id,admin_id,name, email, role,created_at');
            $query = $this->db->get_where('user', array('id' => $id, 'admin_id' => $adminId));
    
                if(!$query){
