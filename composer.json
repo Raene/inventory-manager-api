@@ -12,7 +12,8 @@
 	},
 	"require": {
 		"php": ">=5.3.7",
-		"firebase/php-jwt": "^5.2"
+		"firebase/php-jwt": "^5.2",
+		"minishlink/web-push": "^5.2"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
