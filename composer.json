@@ -12,7 +12,7 @@
 	},
 	"require": {
 		"php": ">=5.3.7",
-		"firebase/php-jwt": "^5.2",
+		"firebase/php-jwt": "^6.0",
 		"minishlink/web-push": "^5.2"
 	},
 	"suggest": {
